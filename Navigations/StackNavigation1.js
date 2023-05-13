@@ -1,7 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';//poner el arroba para que aparesca la opcion de agregar dependencia
 import Nosotros from '../Screens/Nosotros';
-import Index from '../Screens/Index';
 import Productos from '../Screens/Productos';
 import Carrito from '../Screens/Carrito';
 import Descuentos from '../Screens/Descuentos';
@@ -14,11 +13,13 @@ const Stack = createStackNavigator();
 export default function StackNavigation1(){
   return(
     <Stack.Navigator>
-      <Stack.Screen name="Nosotros" component={Nosotros}
-        options={{headerShown:true,headerTitle:'Nosotros'}}/>
-
-      <Stack.Screen name="Productos" component={Productos}
+     <Stack.Screen name="Productos" component={Productos}
         options={{headerShown:true,headerTitle:'Productos'}}/>
+        
+      <Stack.Screen name="Nosotros" component={Nosotros}
+        options={{headerShown:false,headerTitle:'Nosotros'}}/>
+
+     
 
       <Stack.Screen name="Descuentos" component={Descuentos}
         options={({route})=>({title: route.params.nombre})}/>
