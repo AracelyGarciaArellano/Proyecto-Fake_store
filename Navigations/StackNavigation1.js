@@ -13,11 +13,13 @@ const Stack = createStackNavigator();
 export default function StackNavigation1(){
   return(
     <Stack.Navigator>
-     <Stack.Screen name="Productos" component={Productos}
+    <Stack.Screen name="Productos" component={Productos}
         options={{headerShown:true,headerTitle:'Productos'}}/>
+    <Stack.Screen name="Nosotros" component={Nosotros}
+        options={{headerShown:true,headerTitle:'Nosotros'}}/>
+     
         
-      <Stack.Screen name="Nosotros" component={Nosotros}
-        options={{headerShown:false,headerTitle:'Nosotros'}}/>
+      
 
      
 

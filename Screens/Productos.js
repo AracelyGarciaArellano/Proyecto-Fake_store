@@ -1,38 +1,46 @@
-import React, { useEffect, useContext } from 'react';
-import { View, StyleSheet, ScrollView ,Image,TouchableOpacity} from 'react-native';
-import { Text, Card, Button, Icon } from '@rneui/themed';
+import React, { useEffect, useContext, useState } from 'react';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { Text, Card, Button, Icon, ButtonGroup } from '@rneui/themed';
 import { UsoContext } from '../Context/UsoContext';
 import { SearchBar } from '@rneui/themed';
 
 const Productos = ({ navigation }) => {
-  const { products, loading, setProducts, setLoading } = useContext(UsoContext);
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('DetailScreen', { movie: item })}>
-      {item.Poster === 'N/A' ? (
-        <Image
-          style={styles.images}
-          
-        />
-      ) : (
-        <Image style={styles.images} source={{ uri: item.Poster }} />
-      )}
-    </TouchableOpacity>
-  );
+  const {
+    selectedIndex,
+    setSelectedIndex,
+    mostrarTarjetas,
+    funcionBotones,
+  } = useContext(UsoContext);
+
+  useEffect(() => {
+    funcionBotones();
+  }, [selectedIndex]);
+
   return (
     <ScrollView>
-      <View styles={styles.container}>
-        <Text style={styles.subHeader}>Buscador de Productos</Text>
-
-        <SearchBar
-          round
-          containerStyle={{
-            backgroundColor: 'transparent',
-            borderTopWidth: 0,
-            borderBottomWidth: 0,
+      <View style={styles.container}>
+        <Text style={styles.subHeader}>Contamos con una gran varieda</Text>
+        <ButtonGroup
+          buttons={['Joyeria', 'Todos', 'Ropa de mujeres']}
+          selectedIndex={selectedIndex}
+          onPress={(value) => {
+            setSelectedIndex(value);
           }}
+          containerStyle={{ marginBottom: 20 }}
         />
-
+        <View>
+          {mostrarTarjetas && mostrarTarjetas.length > 0 ? (
+            mostrarTarjetas
+          ) : (
+            <Text>No hay tarjetas disponibles</Text>
+          )}
+        </View>
         <View style={{ margin: 10, fontSize: 20 }}></View>
       </View>
     </ScrollView>

@@ -4,11 +4,15 @@ import { Text, Card, Button, Icon } from '@rneui/themed';
 import { UsoContext } from '../Context/UsoContext';
 
 const Joyeria = ({ navigation }) => {
+  const { products, loading, setProducts, setLoading,tarjetas,cartasproductos } = useContext(UsoContext);
+  useEffect(() => {
+    
+  }, []);
   return (
     <ScrollView>
       <View styles={styles.container}>
         <Text style={styles.subHeader}>Joyeria</Text>
-        
+        {tarjetas}
 
         
       </View>

@@ -1,4 +1,5 @@
-import React from 'react';
+/**
+ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Electronicos from '../Screens/Electronicos';
 import Joyeria from '../Screens/Joyeria';
@@ -59,3 +60,7 @@ export default function BottomTabNavigation1() {
     </Tab.Navigator>
   );
 }
+
+
+ */
+
