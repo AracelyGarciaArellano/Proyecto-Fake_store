@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Text, Card, Button, Icon, ButtonGroup } from '@rneui/themed';
 import { UsoContext } from '../Context/UsoContext';
-import { SearchBar } from '@rneui/themed';
+//import { SearchBar } from '@rneui/themed';
 
 const Productos = ({ navigation }) => {
   const {
@@ -16,10 +16,11 @@ const Productos = ({ navigation }) => {
     setSelectedIndex,
     mostrarTarjetas,
     funcionBotones,
+    setProductDetalle,
   } = useContext(UsoContext);
 
   useEffect(() => {
-    funcionBotones();
+    funcionBotones(navigation);
   }, [selectedIndex]);
 
   return (

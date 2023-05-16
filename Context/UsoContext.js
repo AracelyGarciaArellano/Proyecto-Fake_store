@@ -10,6 +10,7 @@ const UsoProvider = (props) => {
   const [loading, setLoading] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [checked, setState] = useState(false);
+  const [productDetalle,setProductDetalle]=useState([]);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -23,7 +24,7 @@ const UsoProvider = (props) => {
 
   const toggleCheckbox = () => setState(!checked);
 
-  const funcionBotones = () => {
+  const funcionBotones = (navigation) => {
     let temporal = [];
     //Joyeria
     if (selectedIndex === 0) {
@@ -48,9 +49,10 @@ const UsoProvider = (props) => {
           }}
           resizeMode="contain"
         />
-        <Text style={{ marginBottom: 10 }}> Precio: {produ.price}</Text>
+        <Text style={{ marginBottom: 10 }}> Precio: {produ.price}$</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <Button
+          onPress={() => {navigation.navigate('Detalles'); setProductDetalle(produ); }}
           buttonStyle={{
             borderRadius: 0,
             marginLeft: 0,
@@ -76,15 +78,19 @@ const UsoProvider = (props) => {
   return (
     <UsoContext.Provider
       value={{
-        products,
-        setProducts,
-        loading,
-        setLoading,
+        products,//nosotros,productos
+        setProducts,//productos
+        loading,//para nosotros
+        setLoading,//para nosotros
         
-        setSelectedIndex,
-        selectedIndex,
-        mostrarTarjetas,
-        funcionBotones,
+        setSelectedIndex,//para productos
+        selectedIndex,//productos
+        mostrarTarjetas,//productos
+        funcionBotones,//productos
+
+        //para detalles
+        productDetalle,
+        setProductDetalle,
       }}>
       {props.children}
     </UsoContext.Provider>
