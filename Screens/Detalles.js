@@ -12,6 +12,7 @@ import { UsoContext } from '../Context/UsoContext';
 const Detalles = ({ navigation }) => {
   const { productDetalle } = useContext(UsoContext);
   return (
+    <View style={styles.containerprincipal}>
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.subHeader}>
@@ -43,14 +44,22 @@ const Detalles = ({ navigation }) => {
           <Text style={styles.text}>{productDetalle.description}</Text>
         </View>
         <Button title="Cerrar" onPress={() => navigation.goBack()} />
+         <Button
+        title="Favoritos"
+        onPress={() => navigation.navigate('Favoritos')}
+      />
       </View>
     </ScrollView>
+    </View>
   );
 };
 
 export default Detalles;
 
 const styles = StyleSheet.create({
+  containerprincipal: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#ffffff',

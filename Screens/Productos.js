@@ -17,11 +17,12 @@ const Productos = ({ navigation }) => {
     mostrarTarjetas,
     funcionBotones,
     setProductDetalle,
+    products
   } = useContext(UsoContext);
 
   useEffect(() => {
     funcionBotones(navigation);
-  }, [selectedIndex]);
+  }, [selectedIndex,products]);
 
   return (
     <ScrollView>

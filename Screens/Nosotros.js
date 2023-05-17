@@ -7,10 +7,12 @@ import {
   ActivityIndicator,
   Button,
   Text,
+  ScrollView,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { UsoContext } from '../Context/UsoContext';
 import { Divider,Card,Icon } from '@rneui/themed';
+import Header1 from './Header1';
 
 const Nosotros = ({ navigation }) => {
   const { products, loading, setProducts, setLoading } = useContext(UsoContext);
@@ -23,8 +25,11 @@ const Nosotros = ({ navigation }) => {
     );
   }
   return (
+    <View style={styles.containerprincipal}> 
+    <ScrollView>
+    <Header1/> 
     <View style={styles.container}>
-
+    
       <Text style={styles.text1}>Solo ofrecemos los mejores</Text>
       <Text style={styles.text2}>
         A continuación podrás observar algunos de la variedad que manejamos en
@@ -55,10 +60,15 @@ const Nosotros = ({ navigation }) => {
         onPress={() => navigation.navigate('Productos')}
       />
     </View>
+    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  containerprincipal:{
+    flex: 1,
+  },
   container: {
     flex: 1,
     flexDirection: 'column',

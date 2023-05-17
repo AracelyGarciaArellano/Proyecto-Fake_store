@@ -8,6 +8,8 @@ import Historial from '../Screens/Historial';
 import InicioSesion from '../Screens/InicioSesion';
 import Registro from '../Screens/Registro';
 import Detalles from '../Screens/Detalles';
+import Favoritos from '../Screens/Favoritos';
+import Header1 from '../Screens/Header1';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +17,13 @@ export default function StackNavigation1() {
   return (
     <Stack.Navigator>
     
+
+      <Stack.Screen
+        name="Nosotros"
+        component={Nosotros}
+        options={{ headerShown: false, headerTitle: 'Nosotros' }}
+      />
+
       <Stack.Screen
         name="Productos"
         component={Productos}
@@ -25,12 +34,6 @@ export default function StackNavigation1() {
         name="Detalles"
         component={Detalles}
         options={{ headerShown: true, headerTitle: 'Detalles' }}
-      />
-
-      <Stack.Screen
-        name="Nosotros"
-        component={Nosotros}
-        options={{ headerShown: true, headerTitle: 'Nosotros' }}
       />
 
       <Stack.Screen
@@ -63,7 +66,11 @@ export default function StackNavigation1() {
         options={{ headerShown: true, headerTitle: 'Registro' }}
       />
 
-      
+      <Stack.Screen
+        name="Favoritos"
+        component={Favoritos}
+        options={{ headerShown: true, headerTitle: 'Favoritos' }}
+      />
     </Stack.Navigator>
   );
 }
