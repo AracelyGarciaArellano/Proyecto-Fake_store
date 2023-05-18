@@ -6,6 +6,7 @@ import {
   Button,
   ScrollView,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import {
   CheckBox,
@@ -14,7 +15,7 @@ import {
 import { UsoContext } from '../Context/UsoContext';
 
 const Detalles = ({ navigation }) => {
-  const { productDetalle, corazon } = useContext(UsoContext);
+  const { productDetalle, corazon, agregarAlCarrito } = useContext(UsoContext);
   const [isChecked, setIsChecked] = useState(productDetalle.checked);
 
   useEffect(() => {
@@ -36,10 +37,6 @@ const Detalles = ({ navigation }) => {
     <View style={styles.containerprincipal}>
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.subHeader}>
-          <Text style={styles.textnegrita}></Text>
-          {productDetalle.category.toUpperCase()}
-        </Text>
         <View style={styles.checkboxContainer}>
           <CheckBox
             checked={isChecked}
@@ -58,14 +55,15 @@ const Detalles = ({ navigation }) => {
             resizeMode="contain"
           />
         </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>{productDetalle.title}</Text>
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={[styles.textnegrita, styles.text]}>
-            PRICE:
-          </Text>
-          <Text style={styles.text}>{productDetalle.price}$</Text>
+        <View style={styles.contentContainer}>
+          <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+            <Text style={[styles.textnegrita, styles.textTitle]}>{productDetalle.title}</Text>
+            <Text style={[styles.textnegrita, styles.textTitle, styles.textPrice]}>${productDetalle.price}</Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={[styles.textnegrita, styles.text]}>
@@ -73,10 +71,10 @@ const Detalles = ({ navigation }) => {
           </Text>
           <Text style={styles.text}>{productDetalle.description}</Text>
         </View>
-         <Button
-            title="Agregar al carrito"
-            onPress={handleAgregarAlCarrito}
-          />
+         <TouchableOpacity style={styles.carButton} onPress={handleAgregarAlCarrito}>
+            <Text style={styles.carButtonText}>Add to Cart</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
     </View>
@@ -91,15 +89,13 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
   },
-  subHeader: {
-    fontSize: 16,
-    backgroundColor: '#9381ff',
-    color: 'white',
-    textAlign: 'center',
-    paddingVertical: 6,
-    marginBottom: 10,
+  contentContainer:{
+    width: 300,
+    flex: 1,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   checkboxContainer: {
     position: 'absolute',
@@ -108,15 +104,32 @@ const styles = StyleSheet.create({
     zIndex: 1,
     borderRadius: 52
   },
+  carButton: {
+    width: 300,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+    padding: 17,
+    borderRadius: 50,
+    marginTop: 20,
+  },
+  carButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   estiloImagen: {
     backgroundColor: '#ffffff',
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
   },
   image: {
     width: 200,
-    height: 200,
+    height: 300,
     marginBottom: 10,
   },
   textContainer: {
@@ -127,6 +140,13 @@ const styles = StyleSheet.create({
   },
   textnegrita: {
     fontWeight: 'bold',
+  },
+  textPrice:{
+    marginLeft: 5,
+  },
+  textTitle: {
+    fontSize: 20, // Tamaño de la fuente en puntos
+    fontFamily: 'Times New Roman',
   },
   text: {
     fontSize: 15, // Tamaño de la fuente en puntos

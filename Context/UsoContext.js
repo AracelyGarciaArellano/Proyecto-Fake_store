@@ -48,10 +48,11 @@ const UsoProvider = (props) => {
   };
 
   const agregarAlCarrito = (id) => {
-  setProductDetalle((prevProductDetalle) => ({
-    ...prevProductDetalle,
-    added: true,
-  }));
+  setProducts((prevProducts) =>
+    prevProducts.map((p) =>
+      p.id === id ? { ...p, added: true } : p
+    )
+  );
 };
 
   const funcionBotones = (navigation) => {
@@ -167,7 +168,6 @@ const UsoProvider = (props) => {
         corazon,
         favoritos, //para favoritos
         enviarAFavoritos,
-        corazon,
       }}>
       {props.children}
     </UsoContext.Provider>
