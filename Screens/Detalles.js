@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -8,22 +8,29 @@ import {
   Image,
 } from 'react-native';
 import {
-  Icon,
   CheckBox,
-  ButtonGroup,
-  ListItem,
-  Avatar,
-  Divider,
 } from '@rneui/themed';
+
 import { UsoContext } from '../Context/UsoContext';
 
 const Detalles = ({ navigation }) => {
-  const { productDetalle,funcionBotones,products,corazon } = useContext(UsoContext);
+  const { productDetalle, corazon } = useContext(UsoContext);
+  const [isChecked, setIsChecked] = useState(productDetalle.checked);
 
   useEffect(() => {
-    funcionBotones(navigation);
-   corazon(productDetalle.id)
-  }, [products]);
+    setIsChecked(productDetalle.checked);
+  }, [productDetalle.checked]);
+  
+  const handleCheck = () => {
+    const newChecked = !isChecked;
+    setIsChecked(newChecked);
+    corazon(productDetalle.id); // Actualiza el estado de check en el contexto
+  };
+
+  const handleAgregarAlCarrito = () => {
+    agregarAlCarrito(productDetalle.id);
+    navigation.navigate('Carrito');
+  };
 
   return (
     <View style={styles.containerprincipal}>
@@ -33,13 +40,15 @@ const Detalles = ({ navigation }) => {
           <Text style={styles.textnegrita}></Text>
           {productDetalle.category.toUpperCase()}
         </Text>
-        <CheckBox
-            checked={productDetalle.checked}
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            checked={isChecked}
             checkedIcon="heart"
             uncheckedIcon="heart-o"
             checkedColor="red"
-            onPress={() => corazon(productDetalle.id)}
+            onPress={handleCheck}
           />
+        </View>
         <View style={styles.estiloImagen}>
           <Image
             style={styles.image}
@@ -64,11 +73,10 @@ const Detalles = ({ navigation }) => {
           </Text>
           <Text style={styles.text}>{productDetalle.description}</Text>
         </View>
-        <Button title="Cerrar" onPress={() => navigation.goBack()} />
          <Button
-        title="Favoritos"
-        onPress={() => navigation.navigate('Favoritos')}
-      />
+            title="Agregar al carrito"
+            onPress={handleAgregarAlCarrito}
+          />
       </View>
     </ScrollView>
     </View>
@@ -92,6 +100,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 6,
     marginBottom: 10,
+  },
+  checkboxContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
+    borderRadius: 52
   },
   estiloImagen: {
     backgroundColor: '#ffffff',

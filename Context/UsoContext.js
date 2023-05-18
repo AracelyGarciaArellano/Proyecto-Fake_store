@@ -47,6 +47,13 @@ const UsoProvider = (props) => {
     );
   };
 
+  const agregarAlCarrito = (id) => {
+  setProductDetalle((prevProductDetalle) => ({
+    ...prevProductDetalle,
+    added: true,
+  }));
+};
+
   const funcionBotones = (navigation) => {
     let temporal = [];
     //Joyeria
@@ -156,6 +163,8 @@ const UsoProvider = (props) => {
         //para detalles
         productDetalle,
         setProductDetalle,
+        agregarAlCarrito,
+        corazon,
         favoritos, //para favoritos
         enviarAFavoritos,
         corazon,
