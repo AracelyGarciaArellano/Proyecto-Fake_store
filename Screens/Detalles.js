@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -7,10 +7,31 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import {
+  CheckBox,
+} from '@rneui/themed';
+
 import { UsoContext } from '../Context/UsoContext';
 
 const Detalles = ({ navigation }) => {
-  const { productDetalle } = useContext(UsoContext);
+  const { productDetalle, corazon } = useContext(UsoContext);
+  const [isChecked, setIsChecked] = useState(productDetalle.checked);
+
+  useEffect(() => {
+    setIsChecked(productDetalle.checked);
+  }, [productDetalle.checked]);
+  
+  const handleCheck = () => {
+    const newChecked = !isChecked;
+    setIsChecked(newChecked);
+    corazon(productDetalle.id); // Actualiza el estado de check en el contexto
+  };
+
+  const handleAgregarAlCarrito = () => {
+    agregarAlCarrito(productDetalle.id);
+    navigation.navigate('Carrito');
+  };
+
   return (
     <View style={styles.containerprincipal}>
     <ScrollView>
@@ -19,6 +40,15 @@ const Detalles = ({ navigation }) => {
           <Text style={styles.textnegrita}></Text>
           {productDetalle.category.toUpperCase()}
         </Text>
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            checked={isChecked}
+            checkedIcon="heart"
+            uncheckedIcon="heart-o"
+            checkedColor="red"
+            onPress={handleCheck}
+          />
+        </View>
         <View style={styles.estiloImagen}>
           <Image
             style={styles.image}
@@ -43,11 +73,10 @@ const Detalles = ({ navigation }) => {
           </Text>
           <Text style={styles.text}>{productDetalle.description}</Text>
         </View>
-        <Button title="Cerrar" onPress={() => navigation.goBack()} />
          <Button
-        title="Favoritos"
-        onPress={() => navigation.navigate('Favoritos')}
-      />
+            title="Agregar al carrito"
+            onPress={handleAgregarAlCarrito}
+          />
       </View>
     </ScrollView>
     </View>
@@ -71,6 +100,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 6,
     marginBottom: 10,
+  },
+  checkboxContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
+    borderRadius: 52
   },
   estiloImagen: {
     backgroundColor: '#ffffff',
