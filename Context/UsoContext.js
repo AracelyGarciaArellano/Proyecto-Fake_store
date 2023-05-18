@@ -158,6 +158,7 @@ const UsoProvider = (props) => {
         setProductDetalle,
         favoritos, //para favoritos
         enviarAFavoritos,
+        corazon,
       }}>
       {props.children}
     </UsoContext.Provider>

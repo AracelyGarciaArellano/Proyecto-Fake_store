@@ -10,7 +10,7 @@ export default function App() {
   return (
     <UsoProvider>
     <NavigationContainer>
-      <StackNavigation1/>
+      <DrawerNavigation1/>
     </NavigationContainer>
     </UsoProvider>
   );

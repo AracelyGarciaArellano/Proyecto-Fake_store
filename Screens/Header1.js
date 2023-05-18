@@ -7,14 +7,7 @@ const Header1 = ({ navigation }) => {
    
   return(
     <View style={styles.container}>
-      <Header
-        leftComponent={{
-          icon: 'menu',
-          color: '#fff',
-          //onPress: () => navigation.openDra0wer(),
-        }}
-        centerComponent={{ text: 'Inicio', style: { color: '#fff' } }}
-      />
+      
     </View>
   );
 };

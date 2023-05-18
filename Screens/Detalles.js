@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext,useEffect } from 'react';
 import {
   Text,
   View,
@@ -7,10 +7,24 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import {
+  Icon,
+  CheckBox,
+  ButtonGroup,
+  ListItem,
+  Avatar,
+  Divider,
+} from '@rneui/themed';
 import { UsoContext } from '../Context/UsoContext';
 
 const Detalles = ({ navigation }) => {
-  const { productDetalle } = useContext(UsoContext);
+  const { productDetalle,funcionBotones,products,corazon } = useContext(UsoContext);
+
+  useEffect(() => {
+    funcionBotones(navigation);
+   corazon(productDetalle.id)
+  }, [products]);
+
   return (
     <View style={styles.containerprincipal}>
     <ScrollView>
@@ -19,6 +33,13 @@ const Detalles = ({ navigation }) => {
           <Text style={styles.textnegrita}></Text>
           {productDetalle.category.toUpperCase()}
         </Text>
+        <CheckBox
+            checked={productDetalle.checked}
+            checkedIcon="heart"
+            uncheckedIcon="heart-o"
+            checkedColor="red"
+            onPress={() => corazon(productDetalle.id)}
+          />
         <View style={styles.estiloImagen}>
           <Image
             style={styles.image}

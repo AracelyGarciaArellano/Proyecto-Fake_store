@@ -18,11 +18,7 @@ export default function StackNavigation1() {
     <Stack.Navigator>
     
 
-      <Stack.Screen
-        name="Nosotros"
-        component={Nosotros}
-        options={{ headerShown: false, headerTitle: 'Nosotros' }}
-      />
+     
 
       <Stack.Screen
         name="Productos"
@@ -40,6 +36,11 @@ export default function StackNavigation1() {
         name="Descuentos"
         component={Descuentos}
         options={({ route }) => ({ title: route.params.nombre })}
+      />
+       <Stack.Screen
+        name="Nosotros"
+        component={Nosotros}
+        options={{ headerShown: false, headerTitle: 'Nosotros' }}
       />
 
       <Stack.Screen

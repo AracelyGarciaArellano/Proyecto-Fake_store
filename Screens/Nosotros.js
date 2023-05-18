@@ -12,6 +12,7 @@ import {
 import Swiper from 'react-native-swiper';
 import { UsoContext } from '../Context/UsoContext';
 import { Divider,Card,Icon } from '@rneui/themed';
+import { Header } from '@rneui/themed';
 import Header1 from './Header1';
 
 const Nosotros = ({ navigation }) => {
@@ -27,7 +28,15 @@ const Nosotros = ({ navigation }) => {
   return (
     <View style={styles.containerprincipal}> 
     <ScrollView>
-    <Header1/> 
+    <Header
+        leftComponent={{
+          icon: 'menu',
+          color: '#fff',
+          onPress: () => navigation.openDrawer()
+        }}
+        centerComponent={{ text: 'Inicio', style: { color: '#fff' } }}
+      />
+    
     <View style={styles.container}>
     
       <Text style={styles.text1}>Solo ofrecemos los mejores</Text>
