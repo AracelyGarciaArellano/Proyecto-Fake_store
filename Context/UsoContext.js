@@ -10,6 +10,7 @@ import {
   Avatar,
   Divider,
 } from '@rneui/themed';
+import auth  from '../Settings/ConfigFirebase';
 
 import { View } from 'react-native';
 
@@ -54,6 +55,13 @@ const UsoProvider = (props) => {
     )
   );
 };
+//---------------------------------------esta es la modificacion en uso context solamente
+const handleLogout = (navigation) => {
+    auth.signOut().then(() => {
+      navigation.navigate('InicioSesion')
+    });
+  };
+  //-----------------------------------------------------
 
   const funcionBotones = (navigation) => {
     let temporal = [];
@@ -168,6 +176,7 @@ const UsoProvider = (props) => {
         corazon,
         favoritos, //para favoritos
         enviarAFavoritos,
+        handleLogout,//------------------Solo actualize este en usoContext
       }}>
       {props.children}
     </UsoContext.Provider>

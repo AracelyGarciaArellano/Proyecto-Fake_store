@@ -16,10 +16,16 @@ const Stack = createStackNavigator();
 export default function StackNavigation1() {
   return (
     <Stack.Navigator>
-    
-
-     
-
+    <Stack.Screen
+        name="InicioSesion"
+        component={InicioSesion}
+        options={{ headerShown: true, headerTitle: 'InicioSesion' }}
+      />
+      <Stack.Screen
+        name="Registro"
+        component={Registro}
+        options={{ headerShown: true, headerTitle: 'Registro' }}
+      />
       <Stack.Screen
         name="Productos"
         component={Productos}
@@ -37,7 +43,7 @@ export default function StackNavigation1() {
         component={Descuentos}
         options={({ route }) => ({ title: route.params.nombre })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Nosotros"
         component={Nosotros}
         options={{ headerShown: false, headerTitle: 'Nosotros' }}
@@ -53,18 +59,6 @@ export default function StackNavigation1() {
         name="Historial"
         component={Historial}
         options={{ headerShown: true, headerTitle: 'Historial' }}
-      />
-
-      <Stack.Screen
-        name="InicioSesion"
-        component={InicioSesion}
-        options={{ headerShown: true, headerTitle: 'InicioSesion' }}
-      />
-
-      <Stack.Screen
-        name="Registro"
-        component={Registro}
-        options={{ headerShown: true, headerTitle: 'Registro' }}
       />
 
       <Stack.Screen
