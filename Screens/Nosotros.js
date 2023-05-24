@@ -14,7 +14,6 @@ import Swiper from 'react-native-swiper';
 import { UsoContext } from '../Context/UsoContext';
 import { Divider, Card, Icon } from '@rneui/themed';
 import { Header } from '@rneui/themed';
-import Header1 from './Header1';
 import { images } from '../assets/images';
 
 const Nosotros = ({ navigation }) => {
@@ -31,19 +30,25 @@ const Nosotros = ({ navigation }) => {
     <View style={styles.containerprincipal}>
       <ScrollView>
         <Header
+          containerStyle={{ backgroundColor: '#ffffff' }}
           leftComponent={{
             icon: 'menu',
-            color: '#ffffff',
+            color: '#000000',
             onPress: () => navigation.openDrawer(),
           }}
-          centerComponent={{ text: 'Inicio', style: { color: '#ffffff' } }}
+          rightComponent={
+            <Image
+              source={images.logo}
+              style={{ width: 50, height: 30 }}
+            />
+          }
         />
 
         <View style={styles.container}>
           <Image source={images.homeImg} style={styles.backgroundImage} />
 
           <View style={styles.overlayContent}>
-            <Text style={styles.text1}>Encuentra tu estilo</Text>
+            <Text style={styles.text1}>Encuentra{'\n'}tu estilo</Text>
             <TouchableOpacity
               style={styles.carButton}
               onPress={() => navigation.navigate('Productos')}
@@ -51,32 +56,23 @@ const Nosotros = ({ navigation }) => {
               <Text style={styles.carButtonText}>Comprar ahora</Text>
             </TouchableOpacity>
             <Text style={styles.text2}>
-              A continuación podrás observar algunos de la variedad que manejamos en FaStore
+              Visita nuestro catalogo
             </Text>
           </View>
 
-          <Divider style={styles.divider} />
-
-          <Swiper showsButtons={true}>
+          <Swiper showsButtons={true} containerStyle={{ height: 400}}>
             {products.map((product) => (
               <View key={product.id} style={styles.slide}>
                 <Image
                   style={styles.image}
                   source={{ uri: product.image }}
                   resizeMode="contain"
+                  onPress={() => navigation.navigate('Productos')}
                 />
               </View>
             ))}
           </Swiper>
-
-          <Text style={styles.text2}>
-            Solo ofrecemos los mejores productos, te invitamos a que veas nuestras distintas secciones que te ofrecemos.
-          </Text>
           <StatusBar style="auto" />
-          <Button
-            title="Mira todos nuestros productos"
-            onPress={() => navigation.navigate('Productos')}
-          />
         </View>
       </ScrollView>
     </View>
@@ -100,35 +96,31 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
+    backgroundColor:'#ffffff',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: '20%',
+    width: '50',
+    height: '100',
   },
   image: {
-    width: '50%',
-    height: '50%',
+    width: '50',
+    height: '100',
   },
   text1: {
-    fontSize: 24,
+    fontSize: 50,
     fontFamily: 'Times New Roman',
     color: 'black',
     textAlign: 'center',
-    marginBottom: 50,
-  },
-  divider: {
-    width: '100%',
-    marginVertical: 10,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
+    marginBottom: 30,
+    fontWeight: 'bold',
   },
   text2: {
     fontSize: 16,
     fontFamily: 'Times New Roman',
     color: 'black',
     textAlign: 'justify',
-    marginBottom: 30,
-    marginTop: 10,
+    marginTop: 15,
+    fontWeight: 'bold',
   },
   carButton: {
     width: 300,
@@ -138,7 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
     padding: 17,
     borderRadius: 50,
-    marginTop: 20,
+    marginBottom:5
   },
   carButtonText: {
     color: '#ffffff',
@@ -156,6 +148,8 @@ const styles = StyleSheet.create({
   overlayContent: {
     position: 'relative',
     zIndex: 1,
+    marginTop:120,
+    marginBottom:0
   },
 });
 

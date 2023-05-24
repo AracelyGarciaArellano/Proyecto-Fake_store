@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Image,TouchableOpacity, Button, StyleSheet } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { useForm, Controller } from 'react-hook-form';
+import { images } from '../assets/images';
 import auth from '../Settings/ConfigFirebase';
 
 const Registro = ({ navigation }) => {
@@ -38,68 +39,80 @@ const Registro = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Controller
-        control={control}
-        rules={{
-          required: { value: true, message: 'Email requerido' },
-          pattern: {
-            value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i,
-            message: 'Email inválido',
-          },
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Email"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            style={styles.input}
-          />
-        )}
-        name="email"
-        defaultValue=""
-      />
-      {errors.email && (
-        <Text style={styles.errorText}>{errors.email.message}</Text>
-      )}
-
-      <Controller
-        control={control}
-        rules={{
-          required: { value: true, message: 'Contraseña requerida' },
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Password"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            style={styles.input}
-            secureTextEntry={true}
-          />
-        )}
-        name="password"
-        defaultValue=""
-      />
-      {errors.password && (
-        <Text style={styles.errorText}>{errors.password.message}</Text>
-      )}
-
-      <Button title="Register" onPress={handleSubmit(handleRegister)} />
-
-      <Overlay isVisible={Boolean(errors.registrationError)}>
-        <Text>Registro fallido</Text>
-        <Text>{errors.registrationError?.message}</Text>
-        <Button
-          title="Cerrar"
-          onPress={() => setError('registrationError', null)}
+      <View
+        style={{
+          flex: 1,
+          marginVertical: 20,
+          marginHorizontal: 10,
+          paddingHorizontal: 5,
+        }}>
+        <Image
+                source={images.logo}
+                style={{ width: 140, height: 100, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginBottom: 10  }} />
+          <Text style={[styles.textnegrita, styles.textTitle]}>Email</Text>
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: 'Email requerido' },
+            pattern: {
+              value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i,
+              message: 'Email inválido',
+            },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Email"
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              style={styles.input}
+            />
+          )}
+          name="email"
+          defaultValue=""
         />
-      </Overlay>
+        {errors.email && (
+          <Text style={styles.errorText}>{errors.email.message}</Text>
+        )}
 
-      <Button
-        title="Inicia Sesion"
-        onPress={() => navigation.navigate('InicioSesion')}
-      />
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: 'Contraseña requerida' },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Password"
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              style={styles.input}
+              secureTextEntry={true}
+            />
+          )}
+          name="password"
+          defaultValue=""
+        />
+        {errors.password && (
+          <Text style={styles.errorText}>{errors.password.message}</Text>
+        )}
+
+        <Button title="Register" onPress={handleSubmit(handleRegister)} />
+
+        <Overlay isVisible={Boolean(errors.registrationError)}>
+          <Text>Registro fallido</Text>
+          <Text>{errors.registrationError?.message}</Text>
+          <Button
+            title="Cerrar"
+            onPress={() => setError('registrationError', null)}
+          />
+        </Overlay>
+
+        <Button
+          title="Already registered"
+          onPress={() => navigation.navigate('InicioSesion')}
+        />
+      </View>
     </View>
   );
 };
@@ -109,19 +122,32 @@ export default Registro;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 90,
   },
   input: {
-    width: '80%',
+    backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: 'transparent',
     padding: 10,
     marginBottom: 10,
   },
   errorText: {
     color: 'red',
     marginBottom: 5,
+  },
+  carButton: {
+    width: 300,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+    padding: 17,
+    borderRadius: 50,
+    marginTop: 20,
+  },
+  carButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

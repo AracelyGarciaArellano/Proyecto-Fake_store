@@ -31,7 +31,7 @@ export default function DrawerNavigation1() {
           backgroundColor: '#ffff',
           width: '80%',
         },
-        drawerActiveTintColor: '#ff6600', //activeTintColor
+        drawerActiveTintColor: '#876a6a', //activeTintColor
         drawerInactiveTintColor: '#060606', //inactiveTintColor
       }}
       drawerContent={(props) => (

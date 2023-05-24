@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Button } from 'react-native';
 import auth from '../Settings/ConfigFirebase';
 import { useForm, Controller } from 'react-hook-form';
+import { images } from '../assets/images';
 
 const InicioSesion = ({ navigation }) => {
   const {
@@ -46,6 +47,10 @@ const InicioSesion = ({ navigation }) => {
           marginHorizontal: 10,
           paddingHorizontal: 5,
         }}>
+        <Image
+              source={images.logo}
+              style={{ width: 140, height: 100, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginBottom: 10  }} />
+        <Text style={[styles.textnegrita, styles.textTitle]}>Email</Text>
         <Controller
           control={control}
           rules={{
@@ -73,7 +78,7 @@ const InicioSesion = ({ navigation }) => {
         {errors.email && (
           <Text style={styles.errorText}>{errors.email.message}</Text>
         )}
-
+        <Text style={[styles.textnegrita, styles.textTitle]}>Password</Text>
         <Controller
           control={control}
           rules={{
@@ -98,10 +103,15 @@ const InicioSesion = ({ navigation }) => {
         {errors.password && (
           <Text style={styles.errorText}>{errors.password.message}</Text>
         )}
-
-        <Button title="Login" onPress={handleSubmit(handleLogin)} />
+        <TouchableOpacity
+            style={styles.carButton}
+            onPress={handleSubmit(handleLogin)}
+          >
+            <Text style={styles.carButtonText}>Login</Text>
+        </TouchableOpacity>
         <Button
-          title="Registro"
+          titleStyle={{ color: 'black' }}
+          title="not registered yet?"
           onPress={() => navigation.navigate('Registro')}
         />
       </View>
@@ -113,17 +123,33 @@ export default InicioSesion;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     flex: 1,
+    marginTop: 90,
   },
   input: {
+    backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: 'transparent',
     padding: 10,
     marginBottom: 10,
   },
   errorText: {
     color: 'red',
     marginBottom: 5,
+  },
+  carButton: {
+    width: 300,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+    padding: 17,
+    borderRadius: 50,
+    marginTop: 20,
+  },
+  carButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
