@@ -27,14 +27,13 @@ const Productos = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.subHeader}>Contamos con una gran varieda</Text>
         <ButtonGroup
           buttons={['Joyeria', 'Todos', 'Ropa de mujeres']}
           selectedIndex={selectedIndex}
           onPress={(value) => {
             setSelectedIndex(value);
           }}
-          containerStyle={{ marginBottom: 20 }}
+          containerStyle={{ marginBottom: 20, borderRadius: 52 }}
         />
         <View>
           {mostrarTarjetas && mostrarTarjetas.length > 0 ? (
@@ -71,3 +70,4 @@ const styles = StyleSheet.create({
 .color4 {color: #ff87df;}
 .color5 {color: #ffb6f4;}
  */
+
