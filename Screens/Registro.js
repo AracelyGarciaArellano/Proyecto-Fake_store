@@ -74,7 +74,7 @@ const Registro = ({ navigation }) => {
         {errors.email && (
           <Text style={styles.errorText}>{errors.email.message}</Text>
         )}
-
+        <Text style={[styles.textnegrita, styles.textTitle]}>Password</Text>
         <Controller
           control={control}
           rules={{
@@ -96,8 +96,12 @@ const Registro = ({ navigation }) => {
         {errors.password && (
           <Text style={styles.errorText}>{errors.password.message}</Text>
         )}
-
-        <Button title="Register" onPress={handleSubmit(handleRegister)} />
+        <TouchableOpacity
+            style={styles.carButton}
+            onPress={handleSubmit(handleRegister)}
+          >
+            <Text style={styles.carButtonText}>Register</Text>
+        </TouchableOpacity>
 
         <Overlay isVisible={Boolean(errors.registrationError)}>
           <Text>Registro fallido</Text>
@@ -107,11 +111,12 @@ const Registro = ({ navigation }) => {
             onPress={() => setError('registrationError', null)}
           />
         </Overlay>
-
-        <Button
-          title="Already registered"
-          onPress={() => navigation.navigate('InicioSesion')}
-        />
+        <TouchableOpacity
+            style={styles.secondButton}
+            onPress={() => navigation.navigate('InicioSesion')}
+          >
+            <Text style={{ color: 'blue' }}>Already registered</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -149,5 +154,13 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  secondButton: {
+    width: 300,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    marginTop: 5,
   },
 });

@@ -48,6 +48,14 @@ const UsoProvider = (props) => {
     );
   };
 
+  const eliminarDeFav = (id) => {
+  setProducts((prevProducts) =>
+    prevProducts.map((p) =>
+      p.id === id ? { ...p, checked: false } : p
+    )
+  );
+};
+
   const agregarAlCarrito = (id) => {
   setProducts((prevProducts) =>
     prevProducts.map((p) =>
@@ -107,7 +115,7 @@ const handleLogout = (navigation) => {
           resizeMode="contain"
         />
       </View>
-      <Text numberOfLines={2} style={{ marginBottom: 10, fontWeight: 'bold', }}>
+      <Text numberOfLines={2} style={{ marginBottom: 2, marginTop: 10, fontWeight: 'bold', }}>
         {produ.title}
       </Text>
       <View
@@ -123,6 +131,7 @@ const handleLogout = (navigation) => {
           checkedIcon="heart"
           uncheckedIcon="heart-o"
           checkedColor="red"
+          containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
           onPress={() => corazon(produ.id)}
         />
       </View>
@@ -187,7 +196,13 @@ const styles = StyleSheet.create({
             Category: {produF.category}
           </ListItem.Subtitle>
         </ListItem.Content>
-        <ListItem.Chevron color="black" />
+        <Icon
+                name="trash"
+                type="feather"
+                size={20}
+                color="red"
+                onPress={() => eliminarDeFav(produF.id)}
+              />
         
       </ListItem>
       
@@ -215,8 +230,6 @@ const styles = StyleSheet.create({
         corazon,
         favoritos, //para favoritos
         enviarAFavoritos,
-        eliminarDelCarrito,
-        handleLogout,
         eliminarDelCarrito,
         handleLogout,
       }}>

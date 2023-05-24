@@ -109,11 +109,12 @@ const InicioSesion = ({ navigation }) => {
           >
             <Text style={styles.carButtonText}>Login</Text>
         </TouchableOpacity>
-        <Button
-          titleStyle={{ color: 'black' }}
-          title="not registered yet?"
-          onPress={() => navigation.navigate('Registro')}
-        />
+        <TouchableOpacity
+            style={styles.secondButton}
+            onPress={() => navigation.navigate('Registro')}
+          >
+            <Text style={{ color: 'blue' }}>not registered yet?</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -136,6 +137,14 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     marginBottom: 5,
+  },
+  secondButton: {
+    width: 300,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    marginTop: 5,
   },
   carButton: {
     width: 300,

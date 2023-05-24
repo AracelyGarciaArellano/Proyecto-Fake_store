@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, Button, ListItem, Avatar } from '@rneui/themed';
+import { View, StyleSheet, TouchableOpacity} from 'react-native';
+import { Text, Button, ListItem, Avatar, Icon } from '@rneui/themed';
 import { UsoContext } from '../Context/UsoContext';
+import { StatusBar } from 'expo-status-bar';
+import Constants from 'expo-constants';
 
 const Carrito = ({ navigation }) => {
-  const { products, setProducts } = useContext(UsoContext);
+  const { products, setProducts, eliminarDelCarrito } = useContext(UsoContext);
   const productosCarrito = products.filter((product) => product.added === true);
 
   const handleCantidadChange = (productId, cantidad) => {
@@ -24,6 +26,8 @@ const Carrito = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
+      <Text style={{ fontWeight: 'bold', fontSize: 24, alignSelf: 'center',alignItems: 'center', justifyContent: 'center', }}>My car</Text>
       {productosCarrito.length > 0 ? (
         productosCarrito.map((producto) => (
           <ListItem
@@ -90,7 +94,13 @@ const Carrito = ({ navigation }) => {
                 </TouchableOpacity>
               </ListItem.Subtitle>
             </ListItem.Content>
-            <ListItem.Chevron color="black" />
+            <Icon
+                name="trash"
+                type="feather"
+                size={20}
+                color="red"
+                onPress={() => eliminarDelCarrito(producto.id)}
+              />
           </ListItem>
         ))
       ) : (
@@ -117,7 +127,7 @@ const Carrito = ({ navigation }) => {
       </View>
       <TouchableOpacity
         style={styles.carButton}
-        onPress={() => navigation.navigate('Favoritos')}
+        onPress={() => navigation.navigate('Productos')}
       >
         <Text style={styles.carButtonText}>Seguir comprando</Text>
       </TouchableOpacity>
@@ -133,6 +143,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f2f2f2', 
     alignSelf: 'center',
+    marginTop: Constants.statusBarHeight,
   },
   listItemContainer: {
     backgroundColor: '#f2f2f2',
