@@ -10,9 +10,9 @@ import {
   Avatar,
   Divider,
 } from '@rneui/themed';
-import auth  from '../Settings/ConfigFirebase';
 
-import { View } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import auth  from '../Settings/ConfigFirebase';
 
 export const UsoContext = createContext();
 
@@ -24,6 +24,7 @@ const UsoProvider = (props) => {
 
   const [productDetalle, setProductDetalle] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
+  const [tarjetasSeleccionadas, setTarjetasSeleccionadas] = useState([]);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -63,6 +64,14 @@ const handleLogout = (navigation) => {
   };
   //-----------------------------------------------------
 
+  const eliminarDelCarrito = (id) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((p) =>
+        p.id === id ? { ...p, added: false } : p
+      )
+    );
+  };
+
   const funcionBotones = (navigation) => {
     let temporal = [];
     //Joyeria
@@ -78,54 +87,85 @@ const handleLogout = (navigation) => {
       temporal = products.filter((p) => p.category === "women's clothing");
     }
     const tarjetas = temporal.map((produ, i) => (
-      <Card key={i}>
-        <Card.Title>{produ.title}</Card.Title>
-        <Card.Divider />
+  <TouchableOpacity
+    key={i}
+    onPress={() => {
+      navigation.navigate('Detalles');
+      setProductDetalle(produ);
+    }}
+    style={{
+      width: '50%',
+      marginBottom: 10,
+    }}
+  >
+    <Card containerStyle={[styles.transparentCard, styles.noBorder]}>
+      <View style={{ backgroundColor: '#ffffff', alignItems: 'center', borderRadius: 20, }}>
         <Card.Image
-          style={{ padding: 0 }}
+          style={styles.image}
           source={{
             uri: produ.image,
           }}
           resizeMode="contain"
         />
-        <Text style={{ marginBottom: 10 }}> Precio: {produ.price}$</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <Button
-            onPress={() => {
-              navigation.navigate('Detalles');
-              setProductDetalle(produ);
-            }}
-            buttonStyle={{
-              borderRadius: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              marginBottom: 0,
-            }}
-            title="Detalles"
-          />
-          <CheckBox
-            checked={produ.checked}
-            checkedIcon="heart"
-            uncheckedIcon="heart-o"
-            checkedColor="red"
-            onPress={() => corazon(produ.id)}
-          />
-        </View>
-      </Card>
-    ));
-    setMostrarTarjetas(tarjetas);
-  };
+      </View>
+      <Text numberOfLines={2} style={{ marginBottom: 10, fontWeight: 'bold', }}>
+        {produ.title}
+      </Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Text style={{ marginBottom: 10 }}> ${produ.price}</Text>
+        <CheckBox
+          checked={produ.checked}
+          checkedIcon="heart"
+          uncheckedIcon="heart-o"
+          checkedColor="red"
+          onPress={() => corazon(produ.id)}
+        />
+      </View>
+    </Card>
+  </TouchableOpacity>
+));
+
+const tarjetasPorFila = [];
+for (let i = 0; i < tarjetas.length; i += 2) {
+  const fila = (
+    <View style={{ flexDirection: 'row' }} key={i}>
+      {tarjetas[i]}
+      {tarjetas[i + 1]}
+    </View>
+  );
+  tarjetasPorFila.push(fila);
+}
+
+setMostrarTarjetas(tarjetasPorFila);  };
+
+const styles = StyleSheet.create({
+  transparentCard: {
+    backgroundColor: 'transparent',
+    padding: 0,
+  },
+  noBorder: {
+    borderColor: 'transparent',
+    elevation: 0, // Establece la elevación en 0 para quitar la sombra
+    shadowColor: 'transparent',
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginBottom: 10,
+  },
+});
 
   const enviarAFavoritos = (navigation) => {
     const temporalFavoritos = products.filter((p) => p.checked === true);
 
     const muestra = temporalFavoritos.map((produF, i) => (
-      <ListItem onPress={() => navigation.navigate('Detalles')}>
+      <ListItem onPress={() => navigation.navigate('Detalles')} containerStyle={{ backgroundColor: '#f2f2f2' }}>
         <Avatar
           rounded
           resizeMode="cover"
@@ -176,7 +216,8 @@ const handleLogout = (navigation) => {
         corazon,
         favoritos, //para favoritos
         enviarAFavoritos,
-        handleLogout,//------------------Solo actualize este en usoContext
+        eliminarDelCarrito,
+        handleLogout,
       }}>
       {props.children}
     </UsoContext.Provider>

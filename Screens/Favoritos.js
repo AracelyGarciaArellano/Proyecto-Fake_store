@@ -44,6 +44,9 @@ export default Favoritos;
 
 const styles = StyleSheet.create({
   container: {
+    width: 350,
     flex: 1,
+    backgroundColor: '#f2f2f2', 
+    alignSelf: 'center',
   },
 });

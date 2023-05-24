@@ -5,16 +5,17 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import Nosotros from './StackNavigation1';
-import Productos from '../Screens/Productos';
+import Nosotros from './StackNavigation1'; 
 import Favoritos from '../Screens/Favoritos';
 import Carrito from '../Screens/Carrito';
-import InicioSesion from './StackNavigation1';
+import InicioSesion from '../Screens/InicioSesion';
 import Registro from '../Screens/Registro';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from '@rneui/themed';
 import auth from '../Settings/ConfigFirebase';
 import { UsoContext } from '../Context/UsoContext';
+import StackNavigation1 from './StackNavigation1';
+import BottomTabNavigation1 from './BottomTabNavigation1';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,7 +24,7 @@ export default function DrawerNavigation1() {
   return (
     <Drawer.Navigator
       useLegacyImplementation
-      initialRouteName="Home"
+      initialRouteName="Nosotros"
       screenOptions={{
         //drawerContentOptions
         drawerStyle: {
@@ -60,7 +61,7 @@ export default function DrawerNavigation1() {
       />
       <Drawer.Screen
         name="Productos"
-        component={Productos}
+        component={BottomTabNavigation1}
         options={{
           headerShown: false,
           drawerIcon: ({ color }) => (
@@ -85,26 +86,6 @@ export default function DrawerNavigation1() {
           headerShown: false,
           drawerIcon: ({ color }) => (
             <Ionicons name={'cart'} size={20} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Inicia Seción"
-        component={InicioSesion}
-        options={{
-          headerShown: false,
-          drawerIcon: ({ color }) => (
-            <Ionicons name={'person-circle'} size={20} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Registro"
-        component={Registro}
-        options={{
-          headerShown: false,
-          drawerIcon: ({ color }) => (
-            <Ionicons name={'person-add'} size={20} color={color} />
           ),
         }}
       />

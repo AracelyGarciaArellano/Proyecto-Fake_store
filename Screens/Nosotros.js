@@ -8,12 +8,14 @@ import {
   Button,
   Text,
   ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { UsoContext } from '../Context/UsoContext';
-import { Divider,Card,Icon } from '@rneui/themed';
+import { Divider, Card, Icon } from '@rneui/themed';
 import { Header } from '@rneui/themed';
 import Header1 from './Header1';
+import { images } from '../assets/images';
 
 const Nosotros = ({ navigation }) => {
   const { products, loading, setProducts, setLoading } = useContext(UsoContext);
@@ -26,65 +28,70 @@ const Nosotros = ({ navigation }) => {
     );
   }
   return (
-    <View style={styles.containerprincipal}> 
-    <ScrollView>
-    <Header
-        leftComponent={{
-          icon: 'menu',
-          color: '#fff',
-          onPress: () => navigation.openDrawer()
-        }}
-        centerComponent={{ text: 'Inicio', style: { color: '#fff' } }}
-      />
-    
-    <View style={styles.container}>
-    
-      <Text style={styles.text1}>Solo ofrecemos los mejores</Text>
-      <Text style={styles.text2}>
-        A continuación podrás observar algunos de la variedad que manejamos en
-        FaStore
-      </Text>
+    <View style={styles.containerprincipal}>
+      <ScrollView>
+        <Header
+          leftComponent={{
+            icon: 'menu',
+            color: '#ffffff',
+            onPress: () => navigation.openDrawer(),
+          }}
+          centerComponent={{ text: 'Inicio', style: { color: '#ffffff' } }}
+        />
 
-      <Divider style={styles.divider} />
+        <View style={styles.container}>
+          <Image source={images.homeImg} style={styles.backgroundImage} />
 
-      <Swiper showsButtons={true}>
-        {products.map((product) => (
-          <View key={product.id} style={styles.slide}>
-            <Image
-              style={styles.image}
-              source={{ uri: product.image }}
-              resizeMode="contain"
-            />
+          <View style={styles.overlayContent}>
+            <Text style={styles.text1}>Encuentra tu estilo</Text>
+            <TouchableOpacity
+              style={styles.carButton}
+              onPress={() => navigation.navigate('Productos')}
+            >
+              <Text style={styles.carButtonText}>Comprar ahora</Text>
+            </TouchableOpacity>
+            <Text style={styles.text2}>
+              A continuación podrás observar algunos de la variedad que manejamos en FaStore
+            </Text>
           </View>
-        ))}
-      </Swiper>
-      
-      <Text style={styles.text2}>
-        Solo ofrecemos los mejores productos, te invitamos a que veas nuestras
-        distintas secciones que te ofrecemos.
-      </Text>
-      <StatusBar style="auto" />
-      <Button
-        title="Mira todos nuestros productos"
-        onPress={() => navigation.navigate('Productos')}
-      />
-    </View>
-    </ScrollView>
+
+          <Divider style={styles.divider} />
+
+          <Swiper showsButtons={true}>
+            {products.map((product) => (
+              <View key={product.id} style={styles.slide}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: product.image }}
+                  resizeMode="contain"
+                />
+              </View>
+            ))}
+          </Swiper>
+
+          <Text style={styles.text2}>
+            Solo ofrecemos los mejores productos, te invitamos a que veas nuestras distintas secciones que te ofrecemos.
+          </Text>
+          <StatusBar style="auto" />
+          <Button
+            title="Mira todos nuestros productos"
+            onPress={() => navigation.navigate('Productos')}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  containerprincipal:{
+  containerprincipal: {
     flex: 1,
   },
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#ffff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    
   },
   loadingContainer: {
     flex: 1,
@@ -95,7 +102,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffff',
     width: '100%',
     height: '20%',
   },
@@ -104,9 +110,9 @@ const styles = StyleSheet.create({
     height: '50%',
   },
   text1: {
-    fontSize: 24, // Tamaño de la fuente en puntos
-    fontFamily: 'Times New Roman', // Fuente de la letra
-    color: 'black', // Color del texto
+    fontSize: 24,
+    fontFamily: 'Times New Roman',
+    color: 'black',
     textAlign: 'center',
     marginBottom: 50,
   },
@@ -117,12 +123,39 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   text2: {
-    fontSize: 16, // Tamaño de la fuente en puntos
-    fontFamily: 'Times New Roman', // Fuente de la letra
-    color: 'black', // Color del texto
+    fontSize: 16,
+    fontFamily: 'Times New Roman',
+    color: 'black',
     textAlign: 'justify',
     marginBottom: 30,
     marginTop: 10,
+  },
+  carButton: {
+    width: 300,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+    padding: 17,
+    borderRadius: 50,
+    marginTop: 20,
+  },
+  carButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: 300,
+    zIndex: -1,
+  },
+  overlayContent: {
+    position: 'relative',
+    zIndex: 1,
   },
 });
 

@@ -1,17 +1,18 @@
-/**
- import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Text, View,Button } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Electronicos from '../Screens/Electronicos';
-import Joyeria from '../Screens/Joyeria';
+import Carrito from '../Screens/Carrito';
+import Favoritos from '../Screens/Favoritos';
+import Productos from '../Screens/Productos';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Nosotros from '../Navigations/StackNavigation1';
-
+import Nosotros from '../Screens/Nosotros';
+ 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigation1() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Productos" 
       screenOptions={{
         //Versiones anteriores tabBarOptions
         tabBarActiveTintColor: '#ff6600', //activeTintColor
@@ -28,39 +29,36 @@ export default function BottomTabNavigation1() {
         },
       }}>
       <Tab.Screen
-        name="Home"
-        component={Nosotros}
+        name="Carrito"
+        component={Carrito}
         options={{
-          tabBarLabel: 'Inicio',
+          tabBarLabel: 'Carrito',
           tabBarIcon: ({ color }) => (
-            <Ionicons name={'ios-home'} size={20} color={color} />
+            <Ionicons name={'cart-outline'} size={20} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="Electronicos"
-        component={Electronicos}
+        name="Productos"
+        component={Productos}
         options={{
-          tabBarLabel: 'Electronicos',
+          tabBarLabel: 'Productos',
           tabBarIcon: ({ color }) => (
-            <Ionicons name={'ios-settings'} size={20} color={color} />
+            <Ionicons name={'glasses-outline'} size={20} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="Joyeria"
-        component={Joyeria}
+        name="Favoritos"
+        component={Favoritos}
         options={{
-          tabBarLabel: 'Joyeria',
+          tabBarLabel: 'Favoritos',
           tabBarIcon: ({ color }) => (
-            <Ionicons name={'ios-help-circle'} size={20} color={color} />
+            <Ionicons name={'heart-circle-outline'} size={20} color={color} />
           ),
         }}
       />
+     
     </Tab.Navigator>
   );
 }
-
-
- */
-
