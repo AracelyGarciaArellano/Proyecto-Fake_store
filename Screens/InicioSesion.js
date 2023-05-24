@@ -1,39 +1,43 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Button } from 'react-native';
 import auth from '../Settings/ConfigFirebase';
 import { useForm, Controller } from 'react-hook-form';
 import { images } from '../assets/images';
+import { UsoContext } from '../Context/UsoContext';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Overlay, Icon } from '@rneui/themed';
 
 const InicioSesion = ({ navigation }) => {
+     const { visible, setVisible, mensaje, setmensaje, eventoOverlay } =
+    useContext(UsoContext); 
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
+    setValue,
   } = useForm();
-  const [usuario, setUsuario] = useState({
-    email: '',
-    password: '',
-  });
-  useEffect(() => {
-    setUsuario()
-  }, [usuario]);
-  
 
-  const handleLogin = (data) => {
-    // Iniciar sesión con email y contraseña
+  useEffect(() => {
+    setValue(false);
+  }, []);
+
+  const handleLogin = ({ email, password }) => {
     auth
-      .signInWithEmailAndPassword(data.email, data.password)
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
-        console.log('Inicio de sesión exitoso');
-        setUsuario((user) => ({ ...user, password: '' })); // Limpiar el campo de contraseña
-        navigation.navigate('Nosotros');
+        navigation.navigate('Home');
       })
       .catch((error) => {
         if (error.code === 'auth/wrong-password') {
-          alert('Contraseña incorrecta');
+          setVisible(true);
+          setmensaje('Contraseña incorrecta');
+        }
+        if (error.code === 'auth/user-not-found') {
+          setVisible(true);
+          setmensaje('Email no registrado');
         } else {
-          alert(error.message);
+          console.log(error.message);
         }
       });
   };
@@ -65,9 +69,9 @@ const InicioSesion = ({ navigation }) => {
               placeholder="Email"
               value={value}
               onBlur={onBlur}
-              onChangeText={(text) => {
-                setUsuario((user) => ({ ...user, email: text }));
-                onChange(text);
+              onChangeText={(txt) => {
+                onChange(txt);
+                setValue('email', txt.trim());
               }}
               style={styles.input}
             />
@@ -90,10 +94,7 @@ const InicioSesion = ({ navigation }) => {
               secureTextEntry={true}
               value={value}
               onBlur={onBlur}
-              onChangeText={(text) => {
-                setUsuario((user) => ({ ...user, password: text }));
-                onChange(text);
-              }}
+              onChangeText={onChange}
               style={styles.input}
             />
           )}
@@ -111,11 +112,18 @@ const InicioSesion = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.secondButton}
-            onPress={() => navigation.navigate('Registro')}
+            onPress={() => navigation.navigate('Register')}
           >
             <Text style={{ color: 'blue' }}>not registered yet?</Text>
         </TouchableOpacity>
       </View>
+      <Overlay isVisible={visible} onBackdropPress={eventoOverlay}>
+        <View>
+          <Ionicons name={'alert-outline'} size={50} style={{ textAlign: 'center' }}/>
+          <Text style={styles.textPrimary}>{mensaje}</Text>
+          <Button title="Cerrar" onPress={eventoOverlay} />
+        </View>
+      </Overlay>
     </View>
   );
 };

@@ -8,9 +8,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {
-  CheckBox,
-} from '@rneui/themed';
+import { CheckBox } from '@rneui/themed';
 
 import { UsoContext } from '../Context/UsoContext';
 
@@ -21,62 +19,73 @@ const Detalles = ({ navigation }) => {
   useEffect(() => {
     setIsChecked(productDetalle.checked);
   }, [productDetalle.checked]);
-  
+
   const handleCheck = () => {
     const newChecked = !isChecked;
     setIsChecked(newChecked);
-    corazon(productDetalle.id); // Actualiza el estado de check en el contexto
+    corazon(productDetalle.id);
   };
 
   const handleAgregarAlCarrito = () => {
     agregarAlCarrito(productDetalle.id);
-    navigation.navigate('Carrito');
+    navigation.navigate('Shopping Cart');
   };
 
   return (
     <View style={styles.containerprincipal}>
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.checkboxContainer}>
-          <CheckBox
-            checked={isChecked}
-            checkedIcon="heart"
-            uncheckedIcon="heart-o"
-            checkedColor="red"
-            onPress={handleCheck}
-          />
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.checkboxContainer}>
+            <CheckBox
+              checked={isChecked}
+              checkedIcon="heart"
+              uncheckedIcon="heart-o"
+              checkedColor="red"
+              onPress={handleCheck}
+            />
+          </View>
+          <View style={styles.estiloImagen}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: productDetalle.image,
+              }}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={styles.contentContainer}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={[styles.textnegrita, styles.textTitle]}>
+                {productDetalle.title}
+              </Text>
+              <Text
+                style={[
+                  styles.textnegrita,
+                  styles.textTitle,
+                  styles.textPrice,
+                ]}>
+                ${productDetalle.price}
+              </Text>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={[styles.textnegrita, styles.text,{ margin: 10 }]}>
+                DESCRIPTION:
+              </Text>
+              <Text style={styles.text}>{productDetalle.description}</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.carButton}
+              onPress={handleAgregarAlCarrito}>
+              <Text style={styles.carButtonText}>Add to Cart</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.estiloImagen}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: productDetalle.image,
-            }}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.contentContainer}>
-          <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-            <Text style={[styles.textnegrita, styles.textTitle]}>{productDetalle.title}</Text>
-            <Text style={[styles.textnegrita, styles.textTitle, styles.textPrice]}>${productDetalle.price}</Text>
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={[styles.textnegrita, styles.text]}>
-            DESCRIPTION:
-          </Text>
-          <Text style={styles.text}>{productDetalle.description}</Text>
-        </View>
-         <TouchableOpacity style={styles.carButton} onPress={handleAgregarAlCarrito}>
-            <Text style={styles.carButtonText}>Add to Cart</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
     </View>
   );
 };
@@ -86,11 +95,12 @@ export default Detalles;
 const styles = StyleSheet.create({
   containerprincipal: {
     flex: 1,
+    backgroundColor: '#eeeeee',
   },
   container: {
     flex: 1,
   },
-  contentContainer:{
+  contentContainer: {
     width: 300,
     flex: 1,
     alignSelf: 'center',
@@ -102,7 +112,7 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     zIndex: 1,
-    borderRadius: 52
+    borderRadius: 52,
   },
   carButton: {
     width: 300,
@@ -141,7 +151,7 @@ const styles = StyleSheet.create({
   textnegrita: {
     fontWeight: 'bold',
   },
-  textPrice:{
+  textPrice: {
     marginLeft: 5,
   },
   textTitle: {

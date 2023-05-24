@@ -24,7 +24,7 @@ export default function DrawerNavigation1() {
   return (
     <Drawer.Navigator
       useLegacyImplementation
-      initialRouteName="Nosotros"
+      initialRouteName="Home"
       screenOptions={{
         //drawerContentOptions
         drawerStyle: {
@@ -42,25 +42,25 @@ export default function DrawerNavigation1() {
             <Text
               style={{ marginLeft: 30 }}
               onPress={() => handleLogout(props.navigation)}>
-              Cerrar sesión
+              Log out
             </Text>
           </View>
         </DrawerContentScrollView>
       )}
     >
       <Drawer.Screen
-        name="Nosotros"
+        name="Home"
         component={Nosotros}
         options={{
           headerShown: false,
-          drawerLabel: 'Inicio',
+          drawerLabel: 'Home',
           drawerIcon: ({ color }) => (
             <Ionicons name={'ios-home'} size={20} color={color} />
           ),
         }}
       />
       <Drawer.Screen
-        name="Productos"
+        name="Products"
         component={BottomTabNavigation1}
         options={{
           headerShown: false,
@@ -70,7 +70,7 @@ export default function DrawerNavigation1() {
         }}
       />
       <Drawer.Screen
-        name="Favoritos"
+        name="Favorites"
         component={Favoritos}
         options={{
           headerShown: false,
@@ -80,7 +80,7 @@ export default function DrawerNavigation1() {
         }}
       />
       <Drawer.Screen
-        name="Carrito"
+        name="Shopping Cart"
         component={Carrito}
         options={{
           headerShown: false,

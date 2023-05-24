@@ -1,40 +1,48 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, TextInput, Image,TouchableOpacity, Button, StyleSheet } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { useForm, Controller } from 'react-hook-form';
 import { images } from '../assets/images';
 import auth from '../Settings/ConfigFirebase';
+import { UsoContext } from '../Context/UsoContext';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Registro = ({ navigation }) => {
+  const { visible, setVisible, mensaje, setmensaje, eventoOverlay } =
+    useContext(UsoContext);
   const {
     control,
     handleSubmit,
     formState: { errors },
-    setError,
+    setValue,
   } = useForm();
 
-  const handleRegister = (data) => {
+  useEffect(() => {
+    setValue(false);
+  }, []);
+
+  
+  const [visible2, setVisible2] = useState(false);
+
+  const handleRegister = ({ email, password }) => {
     auth
-      .createUserWithEmailAndPassword(data.email, data.password)
-      .then((userCredential) => {
-        // Registro exitoso, puedes realizar acciones adicionales aquí
-        updateUI(userCredential.user);
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        setVisible2(true);
+        
       })
       .catch((error) => {
-        // Si el registro falla, muestra un mensaje de error
-        setError('registrationError', { message: error.message });
-        updateUI(null);
+        if (error.code === 'auth/email-already-in-use') {
+          setVisible(true);
+          setmensaje('Email existente');
+        } else {
+          alert(error.message);
+        }
       });
   };
 
-  const updateUI = (user) => {
-    if (user) {
-      // El usuario se registró correctamente, puedes realizar acciones adicionales aquí
-      // Ejemplo: redirigir al usuario a una pantalla de inicio
-      navigation.navigate('Home');
-    } else {
-      // El registro falló, puedes realizar acciones adicionales aquí
-    }
+  const eventoOverlay2 = () => {
+    setVisible2(!visible);
   };
 
   return (
@@ -50,7 +58,7 @@ const Registro = ({ navigation }) => {
                 source={images.logo}
                 style={{ width: 140, height: 100, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginBottom: 10  }} />
           <Text style={[styles.textnegrita, styles.textTitle]}>Email</Text>
-        <Controller
+       <Controller
           control={control}
           rules={{
             required: { value: true, message: 'Email requerido' },
@@ -64,7 +72,10 @@ const Registro = ({ navigation }) => {
               placeholder="Email"
               value={value}
               onBlur={onBlur}
-              onChangeText={onChange}
+              onChangeText={(txt) => {
+                onChange(txt);
+                setValue('email', txt.trim());
+              }}
               style={styles.input}
             />
           )}
@@ -75,19 +86,23 @@ const Registro = ({ navigation }) => {
           <Text style={styles.errorText}>{errors.email.message}</Text>
         )}
         <Text style={[styles.textnegrita, styles.textTitle]}>Password</Text>
-        <Controller
+         <Controller
           control={control}
           rules={{
             required: { value: true, message: 'Contraseña requerida' },
+            minLength: {
+              value: 6,
+              message: 'La contraseña debe tener al menos 6 caracteres',
+            },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               placeholder="Password"
+              secureTextEntry={true}
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
               style={styles.input}
-              secureTextEntry={true}
             />
           )}
           name="password"
@@ -113,7 +128,7 @@ const Registro = ({ navigation }) => {
         </Overlay>
         <TouchableOpacity
             style={styles.secondButton}
-            onPress={() => navigation.navigate('InicioSesion')}
+            onPress={() => navigation.navigate('Login')}
           >
             <Text style={{ color: 'blue' }}>Already registered</Text>
         </TouchableOpacity>

@@ -16,50 +16,29 @@ import { UsoContext } from '../Context/UsoContext';
 const Stack = createStackNavigator();
 
 export default function StackNavigation1() {
-  const { eliminarDelCarrito } = useContext(UsoContext);
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="InicioSesion"
-        component={InicioSesion}
-        options={{ headerShown: false, headerTitle: 'InicioSesion' }} 
-      />
-      <Stack.Screen
-        name="Registro"
-        component={Registro}
-        options={{ headerShown: false, headerTitle: 'Registro' }}
-      />
-       <Stack.Screen
-        name="Nosotros"
+    <Stack.Screen
+        name="Home"
         component={Nosotros}
-        options={{ headerShown: false, headerTitle: 'Registro' }}
+        options={{ headerShown: false, headerTitle: 'Home' }}
       />
       <Stack.Screen
-        name="Detalles"
+        name="Login"
+        component={InicioSesion}
+        options={{ headerShown: false, headerTitle: 'Login' }} 
+      />
+      <Stack.Screen
+        name="Register"
+        component={Registro}
+        options={{ headerShown: false, headerTitle: 'Register' }}
+      />
+      <Stack.Screen
+        name="Details"
         component={Detalles}
-        options={{ headerShown: true, headerTitle: 'Registro' }}
+        options={{ headerShown: true, headerTitle: 'Details' }}
       />
       
     </Stack.Navigator>
   );
 }
-
-/*
- 
-      <Stack.Screen
-      name="Carrito"
-      component={Carrito}
-      options={({ navigation }) => ({
-        headerShown: true,
-        headerTitle: 'Carrito',
-        headerRight: () => (
-          <TouchableOpacity
-            style={{ marginRight: 10 }}
-            onPress={() => eliminarDelCarrito(productDetalle.id)}
-          >
-        <Text>Eliminar</Text>
-      </TouchableOpacity>
-    ),
-  })}
-/>
-*/

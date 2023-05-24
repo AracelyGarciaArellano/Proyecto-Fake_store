@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, Button, ListItem, Avatar, Icon } from '@rneui/themed';
 import { UsoContext } from '../Context/UsoContext';
 import { StatusBar } from 'expo-status-bar';
@@ -27,14 +27,42 @@ const Carrito = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text style={{ fontWeight: 'bold', fontSize: 24, alignSelf: 'center',alignItems: 'center', justifyContent: 'center', }}>My car</Text>
+      <View style={styles.headerContainer}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 24,
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          My car
+        </Text>
+        <Button
+          onPress={() => navigation.navigate('Home')}
+          icon={{
+            name: 'home',
+            type: 'font-awesome',
+            size: 20,
+            color: 'white',
+          }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            borderRadius: 50,
+          }}
+          containerStyle={{
+            width: 50,
+            marginLeft: 50,
+            marginVertical: 15,
+          }}
+        />
+      </View>
       {productosCarrito.length > 0 ? (
         productosCarrito.map((producto) => (
           <ListItem
             key={producto.id}
-            onPress={() => navigation.navigate('Detalles')}
-            containerStyle={styles.listItemContainer}
-          >
+            onPress={() => navigation.navigate('Details')}
+            containerStyle={styles.listItemContainer}>
             <Avatar
               rounded
               resizeMode="cover"
@@ -61,8 +89,7 @@ const Carrito = ({ navigation }) => {
                       producto.id,
                       (producto.cantidad || 1) - 1
                     )
-                  }
-                >
+                  }>
                   <Text>-</Text>
                 </TouchableOpacity>
                 <View
@@ -72,8 +99,7 @@ const Carrito = ({ navigation }) => {
                     borderColor: 'black',
                     paddingLeft: 5,
                     paddingRight: 5,
-                  }}
-                >
+                  }}>
                   <Text>{producto.cantidad || 1}</Text>
                 </View>
                 <TouchableOpacity
@@ -88,37 +114,37 @@ const Carrito = ({ navigation }) => {
                       producto.id,
                       (producto.cantidad || 1) + 1
                     )
-                  }
-                >
+                  }>
                   <Text>+</Text>
                 </TouchableOpacity>
               </ListItem.Subtitle>
             </ListItem.Content>
             <Icon
-                name="trash"
-                type="feather"
-                size={20}
-                color="red"
-                onPress={() => eliminarDelCarrito(producto.id)}
-              />
+              name="trash"
+              type="feather"
+              size={20}
+              color="red"
+              onPress={() => eliminarDelCarrito(producto.id)}
+            />
           </ListItem>
         ))
       ) : (
-        <Text>No hay productos en el carrito</Text>
+        <Text>There are no products in the cart</Text>
       )}
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-        }}
-      >
+        }}>
         {productosCarrito.length > 0 && (
           <Text>
-            Total ({productosCarrito.reduce(
+            Total (
+            {productosCarrito.reduce(
               (total, product) => total + (product.cantidad || 1),
               0
-            )} items):
+            )}{' '}
+            items):
           </Text>
         )}
         {productosCarrito.length > 0 && (
@@ -127,9 +153,8 @@ const Carrito = ({ navigation }) => {
       </View>
       <TouchableOpacity
         style={styles.carButton}
-        onPress={() => navigation.navigate('Productos')}
-      >
-        <Text style={styles.carButtonText}>Seguir comprando</Text>
+        onPress={() => navigation.navigate('Products')}>
+        <Text style={styles.carButtonText}>Keep buying</Text>
       </TouchableOpacity>
     </View>
   );
@@ -141,7 +166,7 @@ const styles = StyleSheet.create({
   container: {
     width: 350,
     flex: 1,
-    backgroundColor: '#f2f2f2', 
+    backgroundColor: '#f2f2f2',
     alignSelf: 'center',
     marginTop: Constants.statusBarHeight,
   },
@@ -153,11 +178,10 @@ const styles = StyleSheet.create({
     height: 100,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    backgroundColor: '#f2f2f2', 
+    backgroundColor: '#f2f2f2',
   },
-  listItemContent: 
-  {
-    backgroundColor: '#f2f2f2', 
+  listItemContent: {
+    backgroundColor: '#f2f2f2',
   },
   titleText: {
     color: 'black',
@@ -187,5 +211,12 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+    headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    marginTop: 10,
   },
 });

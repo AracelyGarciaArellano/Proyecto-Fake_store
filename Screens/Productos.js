@@ -17,29 +17,35 @@ const Productos = ({ navigation }) => {
     mostrarTarjetas,
     funcionBotones,
     setProductDetalle,
-    products
+    products,
   } = useContext(UsoContext);
 
   useEffect(() => {
     funcionBotones(navigation);
-  }, [selectedIndex,products]);
+  }, [selectedIndex, products]);
+
+  const buttonColors = ['#C0C0C0', '#C0C0C0', '#C0C0C0'];
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <ButtonGroup
-          buttons={['Joyeria', 'Todos', 'Ropa de mujeres']}
+          buttons={['Jewelry', 'All', 'Womens clothing']}
           selectedIndex={selectedIndex}
           onPress={(value) => {
             setSelectedIndex(value);
           }}
-          containerStyle={{ marginBottom: 20, borderRadius: 52 }}
+          containerStyle={[
+            styles.buttonGroup,
+            {backgroundColor: buttonColors[selectedIndex]},
+          ]}
+          textStyle={styles.buttonText} 
         />
         <View>
           {mostrarTarjetas && mostrarTarjetas.length > 0 ? (
             mostrarTarjetas
           ) : (
-            <Text>No hay tarjetas disponibles</Text>
+            <Text>No products available</Text>
           )}
         </View>
         <View style={{ margin: 10, fontSize: 20 }}></View>
@@ -62,6 +68,13 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     marginBottom: 10,
   },
+  buttonGroup: {
+    marginBottom: 20,
+    borderRadius: 52,
+  },
+  buttonText: {
+    color: 'black',
+  },
 });
 /*
 .color1 {color: #293460;}
@@ -70,4 +83,3 @@ const styles = StyleSheet.create({
 .color4 {color: #ff87df;}
 .color5 {color: #ffb6f4;}
  */
-

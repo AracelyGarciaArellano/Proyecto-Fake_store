@@ -66,7 +66,7 @@ const UsoProvider = (props) => {
 //---------------------------------------esta es la modificacion en uso context solamente
 const handleLogout = (navigation) => {
     auth.signOut().then(() => {
-      navigation.navigate('InicioSesion')
+      navigation.navigate('Login')
     });
   };
   //-----------------------------------------------------
@@ -97,7 +97,7 @@ const handleLogout = (navigation) => {
   <TouchableOpacity
     key={i}
     onPress={() => {
-      navigation.navigate('Detalles');
+      navigation.navigate('Details');
       setProductDetalle(produ);
     }}
     style={{
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     const temporalFavoritos = products.filter((p) => p.checked === true);
 
     const muestra = temporalFavoritos.map((produF, i) => (
-      <ListItem onPress={() => navigation.navigate('Detalles')} containerStyle={{ backgroundColor: '#f2f2f2' }}>
+      <ListItem onPress={() => navigation.navigate('Details')} containerStyle={{ backgroundColor: '#f2f2f2' }}>
         <Avatar
           rounded
           resizeMode="cover"
@@ -210,6 +210,14 @@ const styles = StyleSheet.create({
     setFavoritos(muestra);
   };
 
+  const [visible, setVisible] = useState(false);
+  const [mensaje, setmensaje] = useState('');
+  
+  const eventoOverlay = () => {
+    setVisible(!visible);
+  };
+
+
   return (
     <UsoContext.Provider
       value={{
@@ -232,6 +240,11 @@ const styles = StyleSheet.create({
         enviarAFavoritos,
         eliminarDelCarrito,
         handleLogout,
+        visible,
+        setVisible,
+        mensaje,
+        setmensaje,
+        eventoOverlay,
       }}>
       {props.children}
     </UsoContext.Provider>

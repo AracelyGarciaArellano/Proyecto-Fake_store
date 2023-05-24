@@ -8,7 +8,7 @@ import {
   Button,
   Text,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { UsoContext } from '../Context/UsoContext';
@@ -37,37 +37,33 @@ const Nosotros = ({ navigation }) => {
             onPress: () => navigation.openDrawer(),
           }}
           rightComponent={
-            <Image
-              source={images.logo}
-              style={{ width: 50, height: 30 }}
-            />
+            <Image source={images.logo} style={{ width: 50, height: 30 }} />
           }
         />
 
         <View style={styles.container}>
-          <Image source={images.homeImg} style={styles.backgroundImage} />
+          <Image source={images.portada} style={styles.backgroundImage} />
 
           <View style={styles.overlayContent}>
-            <Text style={styles.text1}>Encuentra{'\n'}tu estilo</Text>
+            <Text style={styles.text1}>Find{'\n'}your style</Text>
             <TouchableOpacity
               style={styles.carButton}
-              onPress={() => navigation.navigate('Productos')}
-            >
-              <Text style={styles.carButtonText}>Comprar ahora</Text>
+              onPress={() => navigation.navigate('Products')}>
+              <Text style={styles.carButtonText}>Buy now</Text>
             </TouchableOpacity>
-            <Text style={styles.text2}>
-              Visita nuestro catalogo
-            </Text>
+            <Text style={styles.text2}>Visit our catalog</Text>
           </View>
 
-          <Swiper showsButtons={true} containerStyle={{ height: 400}}>
+          <Swiper
+            showsButtons={true}
+            containerStyle={{ height: 300, color: 'red' }}>
             {products.map((product) => (
               <View key={product.id} style={styles.slide}>
                 <Image
                   style={styles.image}
                   source={{ uri: product.image }}
                   resizeMode="contain"
-                  onPress={() => navigation.navigate('Productos')}
+                  onPress={() => navigation.navigate('Products')}
                 />
               </View>
             ))}
@@ -86,7 +82,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
+
     justifyContent: 'flex-start',
   },
   loadingContainer: {
@@ -96,15 +92,21 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
-    backgroundColor:'#ffffff',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
-    alignItems: 'center',
-    width: '50',
-    height: '100',
+    alignSelf: 'center',
+    width: 0,
+    height: 0,
+    borderRadius: 20,
   },
   image: {
-    width: '50',
-    height: '100',
+    alignSelf: 'center',
+    width: 200,
+    height: 200,
+    borderRadius: 20,
+    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text1: {
     fontSize: 50,
@@ -119,8 +121,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Times New Roman',
     color: 'black',
     textAlign: 'justify',
-    marginTop: 15,
+    marginTop: 30,
+    marginBottom: 5,
     fontWeight: 'bold',
+    marginLeft: 15,
+    marginRight: 20,
   },
   carButton: {
     width: 300,
@@ -130,7 +135,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
     padding: 17,
     borderRadius: 50,
-    marginBottom:5
+    marginBottom: 5,
   },
   carButtonText: {
     color: '#ffffff',
@@ -148,8 +153,8 @@ const styles = StyleSheet.create({
   overlayContent: {
     position: 'relative',
     zIndex: 1,
-    marginTop:120,
-    marginBottom:0
+    marginTop: 120,
+    marginBottom: 0,
   },
 });
 
