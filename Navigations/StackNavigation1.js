@@ -11,6 +11,7 @@ import Detalles from '../Screens/Detalles';
 import Favoritos from '../Screens/Favoritos';
 import BottomTabNavigation1 from './BottomTabNavigation1';
 import DrawerNavigation1 from './DrawerNavigation1';
+import { UsoContext } from '../Context/UsoContext';
 
 const Stack = createStackNavigator();
 

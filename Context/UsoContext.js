@@ -11,12 +11,10 @@ import {
   Divider,
 } from '@rneui/themed';
 
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-
+import { View, StyleSheet, TouchableOpacity } from 'react-native'; 
+import auth  from '../Settings/ConfigFirebase';
 export const UsoContext = createContext();
-
+ 
 const UsoProvider = (props) => {
   const [products, setProducts] = useState([]);
   const [mostrarTarjetas, setMostrarTarjetas] = useState([]);
