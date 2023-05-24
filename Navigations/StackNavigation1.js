@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack'; //poner el arroba para que aparesca la opcion de agregar dependencia
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, Button, ListItem, Avatar } from '@rneui/themed';
 import Nosotros from '../Screens/Nosotros';
 import Productos from '../Screens/Productos';
 import Carrito from '../Screens/Carrito';
@@ -13,6 +15,7 @@ import DrawerNavigation1 from './DrawerNavigation1';
 const Stack = createStackNavigator();
 
 export default function StackNavigation1() {
+  const { eliminarDelCarrito } = useContext(UsoContext);
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -25,7 +28,7 @@ export default function StackNavigation1() {
         component={Registro}
         options={{ headerShown: false, headerTitle: 'Registro' }}
       />
-      <Stack.Screen
+       <Stack.Screen
         name="Nosotros"
         component={Nosotros}
         options={{ headerShown: false, headerTitle: 'Registro' }}

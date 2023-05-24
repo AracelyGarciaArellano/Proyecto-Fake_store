@@ -12,7 +12,8 @@ import {
 } from '@rneui/themed';
 
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import auth  from '../Settings/ConfigFirebase';
+
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export const UsoContext = createContext();
 
@@ -216,6 +217,8 @@ const styles = StyleSheet.create({
         corazon,
         favoritos, //para favoritos
         enviarAFavoritos,
+        eliminarDelCarrito,
+        handleLogout,
         eliminarDelCarrito,
         handleLogout,
       }}>
